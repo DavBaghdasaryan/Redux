@@ -1,38 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import * as todoActions from './Store/Todo/actions' 
 
 
 class App extends Component {
  
-  state = {
-    count: 0
-  }
  
-  handleCounterUp = () => {
-    const { store } = this.props
-    store.dispatch({ type: 'INCREMENT' })
-    this.setState({count: store.getState()})
-  }
-
-  handleCounterDown = () => {
-    const { store } = this.props
-    store.dispatch({ type: 'DECREMENT' })
-    this.setState({count: store.getState()})
-  }
-
-  handleCounterCustom = () => {
-    const { store } = this.props
-    store.dispatch({ type: 'CUSTOM_NUMBER', payload: 5 })
-    this.setState({count: store.getState()})
-  }
 
  
   render() {
     return (
       <div>
-        <p>Count = {this.state.count}</p>
-        <button onClick={this.handleCounterUp}>Counter up</button>
-        <button onClick={this.handleCounterDown}>Counter down</button>
-        <button onClick={this.handleCounterCustom}>Another</button>
+       
 
       </div>
       )
@@ -40,4 +19,19 @@ class App extends Component {
 
 }
 
-export default App;
+const mapStateProps = state => {
+  return {
+    todo: state.todo
+  }
+}
+
+const mapDispatchProps = dispatch => {
+  return {
+    addTodo: () => dispatch(todoActions.addTodo()),
+    toggleTodo: () => dispatch(todoActions.toggleTodo())
+  }
+}
+
+
+
+export default connect(mapStateProps, mapDispatchProps)(App);

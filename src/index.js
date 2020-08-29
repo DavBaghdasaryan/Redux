@@ -2,30 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { createStore } from 'redux'
+import createStore from './Store/configureStore'
+import { Provider } from 'react-redux'
 
+const store = createStore()
 
-
-const initialState = 0;
-
-function reducer(state = initialState, action = {}) {
-  switch (action.type) {
-    case 'INCREMENT':
-      return state + 1
-    case 'DECREMENT':
-      return state - 1
-    case 'CUSTOM_NUMBER':
-      return state + action.payload
-    default:
-      return state
-  }
-}
-
-const store = createStore(reducer)
 
 ReactDOM.render(
   <React.StrictMode>
-    <App  store={store} />
+   <Provider store={store}>
+    <App />
+  </Provider>,
   </React.StrictMode>,
   document.getElementById('root')
 );
